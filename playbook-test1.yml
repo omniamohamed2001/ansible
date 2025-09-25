@@ -1,7 +1,6 @@
 ---
 - name: Modify file on Windows hosts
-  hosts: winserver1
-  gather_facts: no
+  hosts: windows
   tasks:
     - name: Ensure folder exists
       ansible.windows.win_file:
