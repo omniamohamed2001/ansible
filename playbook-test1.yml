@@ -1,0 +1,13 @@
+---
+- name: Modify file on Windows hosts
+  hosts: windows
+  tasks:
+    - name: Ensure folder exists
+      ansible.windows.win_file:
+        path: C:\test
+        state: directory
+
+    - name: Add a line to file
+      ansible.windows.win_lineinfile:
+        path: C:\test\hello.txt
+        line: "This line was added by Ansible via AWX"
