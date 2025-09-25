@@ -1,6 +1,6 @@
 ---
 - name: Modify file on Windows hosts
-  hosts: windows
+  hosts: winserver1
   gather_facts: no
   tasks:
     - name: Ensure folder exists
