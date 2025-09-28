@@ -1,6 +1,6 @@
 ---
 - name: Modify file on Windows hosts
-  hosts: 10.10.10.14, all
+  hosts: group1
   tasks:
     - name: Ensure folder exists
       ansible.windows.win_file:
