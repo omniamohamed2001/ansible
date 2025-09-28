@@ -1,6 +1,6 @@
 ---
 - name: edit to add conf to win license
-  hosts: group1
+  hosts: Main-host
   tasks:
     - name: Check if plugins.d directory exists
       ansible.windows.win_stat:
