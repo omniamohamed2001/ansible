@@ -1,0 +1,26 @@
+---
+- name: ADD update Win
+  hosts: group1
+  tasks:
+    - name: Check if plugins.d directory exists
+      ansible.windows.win_stat:
+        path: C:\zabbix\conf\zabbix_agent2.d\plugins.d
+      register: plugins_dir
+
+    - name: Fail if plugins.d directory does not exist
+      ansible.builtin.fail:
+        msg: "Directory C:\\zabbix\\conf\\zabbix_agent2.d\\plugins.d does not exist on target host."
+      when: not plugins_dir.stat.exists
+
+    - name: Create zabbix custom parameter file
+      ansible.windows.win_copy:
+        content: |
+          UserParameter=windows.license.status,powershell -Command "(Get-CimInstance SoftwareLicensingProduct -Filter 'PartialProductKey IS NOT NULL' | select -First 1 -ExpandProperty LicenseStatus)"
+        dest: C:\zabbix\conf\zabbix_agent2.d\plugins.d\windows_license.conf
+      when: plugins_dir.stat.exists
+
+    - name: Restart Zabbix Agent 2 service
+      ansible.windows.win_service:
+        name: "Zabbix Agent 2"
+        state: restarted
+      when: plugins_dir.stat.exists
