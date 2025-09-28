@@ -6,7 +6,6 @@
       ansible.windows.win_file:
         path: C:\test
         state: directory
-        attributes: normal
 
     - name: Write content to file
       ansible.windows.win_copy:
